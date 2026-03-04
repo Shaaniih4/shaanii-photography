@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>SHAANII · photography</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ----- CSS variables ----- */
+        :root {
+            --primary: #FF0000;
+            --bg-dark: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --text-light: #ffffff;
+            --gray-light: #cccccc;
+            --glass-bg: rgba(20, 20, 20, 0.7);
+            --border-light: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ----- reset & base ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            padding-top: 80px; /* fixed navbar space */
+        }
+
+        /* ----- glassmorphism navbar (fixed) ----- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .logo span {
+            color: var(--primary);
+            font-weight: 300;
+            font-size: 1.2rem;
+            margin-left: 4px;
+        }
+
+        /* menu list */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        .nav-menu li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 0.5rem 0;
+            transition: color 0.2s, transform 0.2s;
+            display: inline-block;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-menu li a:hover {
+            color: var(--primary);
+            transform: scale(1.05);
+            border-bottom-color: var(--primary);
+        }
+
+        /* hamburger icon (hidden on desktop) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            padding: 8px;
+            z-index: 1100;
+        }
+        .hamburger span {
+            width: 28px;
+            height: 2px;
+            background: white;
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+
+        /* ----- hero section (90vh) ----- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background: radial-gradient(circle at 30% 30%, #2a2a2a, #000000);
+        }
+        .hero-content h1 {
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            text-transform: uppercase;
+            color: var(--primary);
+        }
+        .hero-content p {
+            font-size: 1.3rem;
+            margin: 2rem 0 3rem;
+            color: var(--gray-light);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 1rem 2.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.1rem;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+            background: transparent;
+            color: white;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+        .btn-primary:hover {
+            background: transparent;
+            color: white;
+            transform: scale(1.05);
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            transform: scale(1.05);
+        }
+
+        /* ----- shared section style ----- */
+        section {
+            padding: 5rem 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        /* ----- video/reel cards (updated for Instagram reels) ----- */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .video-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #333;
+            backdrop-filter: blur(4px);
+            text-align: center;
+        }
+        .video-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 30px rgba(255, 0, 0, 0.2);
+        }
+        .video-card a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            padding: 2rem 1rem;
+        }
+        .video-card i {
+            font-size: 5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .video-card h3 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .video-card p {
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        /* ----- about stats ----- */
+        .stats-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        .stat-item {
+            flex: 1 1 180px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem 1rem;
+            border-radius: 30px;
+            border: 1px solid #2a2a2a;
+            backdrop-filter: blur(5px);
+            transition: 0.2s;
+        }
+        .stat-item:hover {
+            border-color: var(--primary);
+            transform: scale(1.03);
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .stat-label {
+            font-size: 1.1rem;
+            color: #aaa;
+        }
+
+        /* ----- contact form ----- */
+        .contact-form {
+            max-width: 700px;
+            margin: 3rem auto 0;
+            background: rgba(20,20,20,0.5);
+            backdrop-filter: blur(8px);
+            padding: 3rem;
+            border-radius: 30px;
+            border: 1px solid #333;
+        }
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            background: #1e1e1e;
+            border: 1px solid #3a3a3a;
+            border-radius: 50px;
+            font-size: 1rem;
+            color: white;
+            transition: all 0.3s;
+        }
+        .form-group textarea {
+            border-radius: 30px;
+            resize: vertical;
+            min-height: 140px;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,0,0,0.2);
+            background: #252525;
+        }
+        .submit-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: white;
+            padding: 1rem 3rem;
+            font-size: 1.3rem;
+            border-radius: 60px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            width: 100%;
+        }
+        .submit-btn:hover {
+            background: var(--primary);
+            transform: scale(1.02);
+        }
+
+        /* ----- footer ----- */
+        footer {
+            background: #0f0f0f;
+            padding: 3rem 2rem;
+            border-top: 1px solid #222;
+            text-align: center;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .social-links a {
+            color: white;
+            font-size: 2rem;
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .social-links a:hover {
+            color: var(--primary);
+            transform: scale(1.2);
+        }
+        .footer-copy {
+            color: #777;
+            font-size: 0.95rem;
+        }
+
+        /* ----- responsiveness & mobile menu ----- */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            .navbar {
+                padding: 0.8rem 1.5rem;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--glass-bg);
+                backdrop-filter: blur(16px);
+                flex-direction: column;
+                padding: 2rem 0;
+                gap: 1.8rem;
+                border-bottom: 1px solid var(--border-light);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+                display: none; /* hidden by default */
+                z-index: 999;
+            }
+            .nav-menu.show {
+                display: flex;
+            }
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+            h2 {
+                font-size: 2.2rem;
+            }
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn {
+                width: 80%;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            .logo {
+                font-size: 1.4rem;
+            }
+            section {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- fixed glass navbar -->
+    <nav class="navbar">
+        <div class="logo">SHAANII<span>·photo</span></div>
+        <div class="hamburger" id="hamburger" aria-label="menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#home">HOME</a></li>
+            <li><a href="#videos">REELS</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+            <li><a href="https://www.instagram.com/shaanii.h4/" target="_blank" rel="noopener"><i class="fab fa-instagram" style="color: #FF0000;"></i> IG</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO (90vh) with name as one word -->
+    <section id="home" class="hero">
+        <div class="hero-content container">
+            <h1>SHAANII</h1>
+            <p>visual storyteller · photographer · frame collector</p>
+            <div class="btn-group">
+                <a href="https://www.instagram.com/shaanii.h4/" target="_blank" class="btn btn-primary"><i class="fab fa-instagram"></i> INSTAGRAM</a>
+                <a href="#videos" class="btn btn-outline"><i class="fab fa-instagram"></i> LATEST REELS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSTAGRAM REELS SECTION (latest reels from @shaanii.h4) -->
+    <section id="videos">
+        <div class="container">
+            <h2>latest reels</h2>
+            <div class="video-grid">
+                <!-- All cards link to the Instagram Reels tab (opens in new tab) -->
+                <div class="video-card">
+                    <a href="https://www.instagram.com/shaanii.h4/reels/" target="_blank" rel="noopener">
+                        <i class="fab fa-instagram"></i>
+                        <h3>Golden hour slice</h3>
+                        <p>tap to watch reel →</p>
+                    </a>
+                </div>
+                <div class="video-card">
+                    <a href="https://www.instagram.com/shaanii.h4/reels/" target="_blank" rel="noopener">
+                        <i class="fab fa-instagram"></i>
+                        <h3>Street mood</h3>
+                        <p>tap to watch reel →</p>
+                    </a>
+                </div>
+                <div class="video-card">
+                    <a href="https://www.instagram.com/shaanii.h4/reels/" target="_blank" rel="noopener">
+                        <i class="fab fa-instagram"></i>
+                        <h3>Behind the scene</h3>
+                        <p>tap to watch reel →</p>
+                    </a>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 1.5rem; color: #aaa;">
+                <i class="fas fa-external-link-alt"></i> click any card to open @shaanii.h4 reels
+            </p>
+        </div>
+    </section>
+
+    <!-- ABOUT + STATS -->
+    <section id="about" style="background: #111;">
+        <div class="container">
+            <h2>behind the lens</h2>
+            <p style="max-width: 800px; margin-bottom: 2rem; color: #ccc;">SHAANII captures raw emotion through a minimalist aesthetic. Based everywhere, focused on storytelling.</p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">885</div>
+                    <div class="stat-label">instagram followers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">photoshoots</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">48</div>
+                    <div class="stat-label">reels & videos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">years creating</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT FORM -->
+    <section id="contact">
+        <div class="container">
+            <h2>say hello</h2>
+            <div class="contact-form">
+                <form id="demoForm" onsubmit="event.preventDefault(); alert('Thanks for reaching out, SHAANII will reply soon!');">
+                    <div class="form-group">
+                        <input type="text" placeholder="your name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="email address" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="message..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">send message <i class="fas fa-arrow-right"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER with social icons -->
+    <footer>
+        <div class="social-links">
+            <a href="https://www.instagram.com/shaanii.h4/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        </div>
+        <div class="footer-copy">
+            © 2025 SHAANII photography — all frames reserved.
+        </div>
+    </footer>
+
+    <!-- VANILLA JS: only hamburger menu (no YouTube fetch) -->
+    <script>
+        (function() {
+            // ----- hamburger menu logic -----
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('navMenu');
+
+            function toggleMenu() {
+                navMenu.classList.toggle('show');
+            }
+
+            if (hamburger) {
+                hamburger.addEventListener('click', toggleMenu);
+            }
+
+            // close menu after clicking a link (mobile friendly)
+            const menuLinks = document.querySelectorAll('.nav-menu li a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768) {
+                        navMenu.classList.remove('show');
+                    }
+                });
+            });
+
+            // close menu on resize if desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    navMenu.classList.remove('show');
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
