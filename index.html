@@ -104,16 +104,49 @@
             border-radius: 4px;
         }
 
-        /* ----- hero section (90vh) ----- */
+        /* ----- hero section (90vh) with cover image ----- */
         .hero {
+            position: relative;          /* needed for absolute positioning of image & overlay */
             min-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             padding: 2rem;
-            background: radial-gradient(circle at 30% 30%, #2a2a2a, #000000);
+            background-color: #000;     /* fallback while image loads */
+            overflow: hidden;
         }
+
+        /* cover image tag (full‑bleed, object-fit cover) */
+        .hero-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;           /* behaves exactly like "background-size: cover" */
+            z-index: 0;
+        }
+
+        /* dark overlay for text readability */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65); /* subtle dark layer */
+            z-index: 1;
+        }
+
+        /* hero text content stays above image and overlay */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
         .hero-content h1 {
             font-size: clamp(3rem, 10vw, 5.5rem);
             font-weight: 800;
@@ -421,8 +454,16 @@
         </ul>
     </nav>
 
-    <!-- HERO (one word) -->
+    <!-- HERO with COVER PHOTO (image tag + overlay) -->
     <section id="home" class="hero">
+        <!-- Cover image as <img> tag (fully responsive, object-fit cover) -->
+        <img class="hero-cover" 
+             src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=1600&h=900&fit=crop" 
+             alt="SHAANII photography cover – atmospheric landscape" 
+             loading="eager">
+        <!-- Dark overlay for text contrast -->
+        <div class="hero-overlay"></div>
+        
         <div class="hero-content container">
             <h1>SHAANII</h1>
             <p>visual storyteller · photographer · frame collector</p>
@@ -562,7 +603,7 @@
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = 'sending...';
                 
-                // ✅ YOUR ACTUAL FORMSPREE ENDPOINT
+                // Your actual Formspree endpoint
                 const formspreeEndpoint = 'https://formspree.io/f/xojkavkl';
                 
                 const formData = new FormData(form);
