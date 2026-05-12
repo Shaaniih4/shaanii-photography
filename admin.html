@@ -1,1 +1,56 @@
+<!-- 🌟 DYNAMIC DATA LOADER 🌟 -->
+<script>
+async function loadPortfolioData() {
+  try {
+    const res = await fetch('./data.json');
+    const data = await res.json();
 
+    // Hero
+    document.querySelector('.hero-content h1').innerHTML = data.hero.title;
+    document.querySelector('.hero-content p').textContent = data.hero.subtitle;
+    document.querySelector('.hero-cover').src = data.hero.imageUrl;
+
+    // About
+    const stats = document.querySelectorAll('.stat-number');
+    if(stats.length >= 4) {
+      stats[0].textContent = data.about.followers;
+      stats[1].textContent = data.about.photoshoots;
+      stats[2].textContent = data.about.reelsPosts;
+      stats[3].textContent = data.about.years;
+    }
+    document.querySelector('#about p').textContent = data.about.bio;
+
+    // Gallery
+    const grid = document.querySelector('.gallery-grid');
+    grid.innerHTML = data.gallery.map(item => {
+      if (item.imageUrl && item.imageUrl.trim() !== '') {
+        return `<div class="frame-card">
+          <img src="${item.imageUrl}" class="frame-img" alt="${item.title}">
+          <div class="frame-overlay"><span class="frame-label">${item.title}</span></div>
+        </div>`;
+      } else {
+        return `<div class="frame-card">
+          <div class="frame-placeholder"><i class="fas fa-camera"></i><span>${item.title}</span></div>
+          <div class="frame-overlay"><span class="frame-label">${item.title}</span></div>
+        </div>`;
+      }
+    }).join('');
+
+    // Reels
+    const videoGrid = document.querySelector('.video-grid');
+    videoGrid.innerHTML = data.reels.map(r => {
+      return `<div class="video-card">
+        <a href="${r.link}" target="_blank">
+          <i class="fab fa-instagram"></i>
+          <h3>${r.title}</h3>
+          <p>${r.description}</p>
+        </a>
+      </div>`;
+    }).join('');
+
+  } catch(e) {
+    console.log('No data.json found – using default content');
+  }
+}
+loadPortfolioData();
+</script>
