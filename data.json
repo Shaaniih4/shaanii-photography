@@ -1,0 +1,86 @@
+{
+  "gallery": [
+    {
+      "id": 1,
+      "title": "Golden Hour",
+      "imageUrl": "",
+      "placeholder": true
+    },
+    {
+      "id": 2,
+      "title": "Street Soul",
+      "imageUrl": "",
+      "placeholder": true
+    },
+    {
+      "id": 3,
+      "title": "Monsoon Light",
+      "imageUrl": "",
+      "placeholder": true
+    },
+    {
+      "id": 4,
+      "title": "Blue Hour",
+      "imageUrl": "",
+      "placeholder": true
+    },
+    {
+      "id": 5,
+      "title": "Silhouette",
+      "imageUrl": "",
+      "placeholder": true
+    },
+    {
+      "id": 6,
+      "title": "Fog & Still",
+      "imageUrl": "",
+      "placeholder": true
+    }
+  ],
+  "reels": [
+    {
+      "id": 1,
+      "title": "Golden Hour Slice",
+      "description": "tap to watch reel →",
+      "link": "https://www.instagram.com/shaanii.h4/reels/"
+    },
+    {
+      "id": 2,
+      "title": "Street Mood",
+      "description": "tap to watch reel →",
+      "link": "https://www.instagram.com/shaanii.h4/reels/"
+    },
+    {
+      "id": 3,
+      "title": "Behind the Scene",
+      "description": "tap to watch reel →",
+      "link": "https://www.instagram.com/shaanii.h4/reels/"
+    }
+  ],
+  "hero": {
+    "title": "SHA<span>A</span>NII",
+    "subtitle": "visual storyteller · photographer · frame collector",
+    "imageUrl": "Picsart_24-09-10_20-14-57-934.jpg",
+    "igLink": "https://www.instagram.com/shaanii.h4/"
+  },
+  "about": {
+    "bio": "SHAANII captures raw emotion through a minimalist aesthetic. Based everywhere, focused on storytelling. Every frame is a fragment of feeling frozen in time.",
+    "followers": "900",
+    "photoshoots": "340+",
+    "reelsPosts": "55",
+    "years": "6"
+  },
+  "messages": [],
+  "settings": {
+    "password": "shaanii2025",
+    "instagram": "https://www.instagram.com/shaanii.h4/",
+    "formspree": "https://formspree.io/f/xojkavkl"
+  },
+  "activity": [
+    {
+      "msg": "Admin logged in",
+      "time": "2026-05-12T18:29:30.363Z"
+    }
+  ],
+  "exportedAt": "2026-05-12T18:30:38.683Z"
+}
